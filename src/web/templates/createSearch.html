@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block content %}
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 border-bottom">
+        <h2>Track and forecast vehicle prices</h2>
+    </div>
+    <p class="lead">Track the price of your favourite vehicle, and see how much it could be worth in the future</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            {{ render_form(form) }}
+            <p>Please make your vehicle search criteria as specific as possible. Broad searches yielding many results
+                will take longer to retrieve all price data. To avoid excessively long waiting times, there is a limit
+                of 250 prices retrieved per search</p>
+
+        </div>
+    </div>
+
+{% endblock %}

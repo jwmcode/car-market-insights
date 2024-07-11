@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 border-bottom">
+        <h2>Your valuation</h2>
+    </div>
+    <p class="lead">Your vehicle is worth approximately <b>£{{ pred1 }}</b></p>
+    <p>How do we do it? We'll try to keep it simple. We collect 1000+ AutoTrader listings
+        every day for the visualisations on our home page, and based on the selection of vehicle attributes you provide us,
+        we fit this data to our k-nearest neighbours regression model. We then pass the information you have provided
+        to the model, and it returns a predicted vehicle value. Because our AutoTrader data is renewed every
+        day, your valuation will be up-to-date.
+     </p>
+
+    <p> To evaluate the performance of the model, we use the r-squared score (R2). R2, in this case,
+        indicates how much variation of vehicle price is explained by the independent variables: mileage, model year
+        etc. In other words, it measures how well the model fits the data. If the model achieved an R2 score
+        of 80%, that means that 80% of the data fits the model. <b> In this case, given the selection of vehicle features
+        you have chosen, the model has achieved an R2 score of {{ r2_1 * 100 }}%. Whilst this gauges how well the model performs on this data, it does not reflect how accurate your individual
+            valuation may be.
+        </b> However, below are some plots that visualise the performance of our model.</p>
+
+
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <div id="plot1"></div>
+    <script>
+    Plotly.newPlot("plot1", {{ fig1 | safe }})
+    </script>
+
+
+    <p>To evaluate the performance of a model and produce an R2 value, the data must be split into test and train
+    sets. The model is fit from the training data, and based on the results of this, the predictions are made on the
+    test data. The R2 value is then calculated from the results of this. The graph above shows the model's predicted
+        vehicle prices against the true prices, and the difference in
+        outcome of the test and train datasets. The dotted line of best fit signifies the optimal fit, where the model's
+        predicted price is exactly the true value. This graph also indicates model bias, and it clearly more accurately
+        predicts the values of cars with a low
+        actual price, and this is due to the data we use; the majority of adverts from AutoTrader are for vehicles
+    in this price range. So if the information of a car you have provided is associated with a high value, this model
+    will not predict accurately.</p>
+
+
+
+    <div id="plot2"></div>
+    <script>
+    Plotly.newPlot("plot2", {{ fig2 | safe }})
+    </script>
+
+    <p>This second plot shows the residual errors between the predicted and true values in the test and train
+        datasets, as well as their distribution. You will notice that the residuals get larger as the predictions
+        increase, this is called heteroscedasticity, and is a result of the slightly compromised data we use, as
+        discussed previously. Aside from these outliers (expensive vehicles), the distribution of residual errors is
+        healthy, and follows a normal distribution.
+
+{% endblock %}

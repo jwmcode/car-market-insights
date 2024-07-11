@@ -1,0 +1,122 @@
+{% from 'bootstrap/utils.html' import render_messages %}
+
+<!doctype html>
+<html lang="en">
+
+
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{{ title }} - Auto Trends</title>
+
+    <!-- Bootstrap core CSS -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="../static/style.css" rel="stylesheet">
+  </head>
+
+
+  <body>
+
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3"
+           href="{{ url_for('api.index') }}">Auto <img src="../static/logo.png" width="25" height="25" class=
+                "d-inline-block align-top" alt=""> Trends
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100 shadow-none" type="text" placeholder="Search"
+               aria-label="Search">
+    </header>
+
+    <div class="container-fluid">
+      <div class="row">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link {{ 'active' if active == 'home' }}" aria-current="page" href="{{ url_for('api.index') }}">
+                  <span data-feather="home"></span>
+                  Home
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ 'active' if active == 'track' }}" href="{{ url_for('api.create_search') }}">
+                  <span data-feather="bar-chart-2"></span>
+                  Track Vehicle Prices
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {{ 'active' if active == 'valuation' }}" href="{{ url_for('api.valuation') }}">
+                  <span data-feather="dollar-sign"></span>
+                  Vehicle Valuation
+                </a>
+              </li>
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>Prices Being Tracked</span>
+              <a class="link-secondary" href="{{ url_for('api.create_search') }}" aria-label="Add a new search">
+                <span data-feather="plus-circle"></span>
+              </a>
+            </h6>
+            <ul class="nav flex-column mb-2">
+
+                {% for id, name in searches%}
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if active == id|string }}" href="{{ url_for('api.search_info', search_id=id)}}">
+                            <span data-feather="bar-chart"></span>
+                                {{ name }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+          </div>
+        </nav>
+
+
+
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+
+            {{ render_messages() }}
+            {% block content %}{% endblock %}
+
+
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+    <script src="../static/script.js"></script>
+
+
+  </body>
+
+</html>
+
+

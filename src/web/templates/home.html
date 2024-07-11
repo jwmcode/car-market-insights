@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <section class="text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">Welcome to AutoTrends</h1>
+        <p class="lead text-muted">We visualise autotrader.co.uk data. With this data we can provide you with
+            vehicle valuations, as well as allowing you to track specific vehicle prices and view their value forecast.
+            We update daily, so you're always up-to-date.</p>
+        <p>
+          <a href="{{ url_for('api.create_search') }}" class="btn btn-primary my-2">Track vehicle prices</a>
+          <a href="{{ url_for('api.valuation') }}" class="btn btn-secondary my-2">Receive a valuation</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-top">
+        <div id="plot4"></div>
+        <script>
+            Plotly.newPlot("plot4", {{ fig4 | safe }})
+        </script>
+    </div>
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-top">
+        <div id="plot1"></div>
+        <script>
+            Plotly.newPlot("plot1", {{ fig1 | safe }})
+        </script>
+    </div>
+
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-top">
+        <div id="plot2"></div>
+        <script>
+            Plotly.newPlot("plot2", {{ fig2 | safe }})
+        </script>
+    </div>
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-top">
+    <div id="plot3"></div>
+    <script>
+    Plotly.newPlot("plot3", {{ fig3 | safe }})
+    </script>
+    </div>
+
+
+{% endblock %}

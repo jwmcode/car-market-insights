@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 border-bottom">
+        <h2>All prices over time</h2>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <div id="plot1"></div>
+    <script>
+    Plotly.newPlot("plot1", {{ fig1 | safe }})
+    </script>
+
+    <div class="justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 mb-3 border-bottom">
+        <h2>Average price forecast</h2>
+    </div>
+
+    {{ message }}
+    <div id="plot2"></div>
+    <script>
+    Plotly.newPlot("plot2", {{ fig2 | safe }})
+    </script>
+
+
+
+{% endblock %}
+
